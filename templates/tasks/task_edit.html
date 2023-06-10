@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #494A4B;
+        }
+
+        h1 {
+            color: #13C2E2;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color:white;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1BFF00;
+            background-color: #1e2327;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0d1114;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            background-color: red;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #c40000;
+        }
+
+        .Create{
+            margin-top: 10px;
+            background: #3c3834;
+            padding: 20px;
+            padding-bottom: 5%;
+            border-radius: 5px;
+
+        }
+
+        select{
+            width: 50%;
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="Create">
+        <h1>Edit Task</h1>
+        <form action="{% url 'task_edit' task_id=task_id %}" method="post">
+            {% csrf_token %}
+            <label for="title">Title:</label>
+            <input type="text" name="title" value="{{ task.title }}" required><br>
+            <label for="description">Description:</label>
+            <textarea name="description" required>{{ task.description }}</textarea><br>
+            <label for="priority">Priority:</label>
+            <select name="priority">
+                <option value="1" {% if task.priority == 1 %}selected{% endif %}>Low</option>
+                <option value="2" {% if task.priority == 2 %}selected{% endif %}>Medium</option>
+                <option value="3" {% if task.priority == 3 %}selected{% endif %}>High</option>
+            </select>
+            <br>
+            <br>
+            <button type="submit">Update</button>
+        </form>
+        <a href="{% url 'task_list' %}">Back to Task List</a>
+    </div>
+    
+</body>
+</html>

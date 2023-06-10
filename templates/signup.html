@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To Do - Signup</title>
+  <style>
+    body {
+      background-color: #1f2933;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 20%;
+      padding: 40px;
+      background-color: #374151;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4b5563;
+      color: #d1d5db;
+    }
+    
+    .form-group button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #1f2933;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .form-group button:hover {
+      background-color: #374151;
+    }
+    
+    .form-group p {
+      size : 2px;
+    }
+
+    p {
+      color: #d1d5db;
+    }
+    
+    a {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up</h2>
+    <form action="/signup/" method="post">
+      {% csrf_token %}
+      {% if error_message %}
+  <div class="alert">
+    {{ error_message }}
+  </div>
+  {% endif %}
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+        
+      </div>
+      <div class="form-group">
+        <label for="password1">Password</label>
+        <input type="password" id="password1" name="password1" required>
+        <font size="-2"><p>* <i>Password should be combinations, Numbers and Characters.</p></font>
+        <font size="-2"><p>* <i>Password should not be same as username.</p></font>
+      </div>
+      <div class="form-group">
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2" required>
+      </div>
+      
+      <div class="form-group">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+    
+      <p><b>Already have an Account? <a href="/login/">Login</a></p>
+    
+  </div>
+</body>
+</html>

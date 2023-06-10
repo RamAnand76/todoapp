@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #494A4B; /* Set the page background color */
+        }
+    
+        h1 {
+            color: #13C2E2;
+            text-align: center;
+        }
+    
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    
+        li {
+            display: flex;
+            background: #00a5e1;
+            color: white;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border: 1px solid #ccc; /* Add a border to the list item */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        li:last-child {
+            border-bottom: none;
+        }
+    
+        form {
+            display: inline-block;
+        }
+    
+        button[type="submit"] {
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+    
+        .task-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    
+        .task-info span {
+            font-size: 14px;
+            color: #888;
+        }
+    
+        .task-filters {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+    
+        .task-filters button {
+            margin: 0 5px;
+            font-size: 14px;
+            color: #888;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+    
+        .task-filters button.active {
+            color: #333;
+            font-weight: bold;
+        }
+    
+        .priority {
+            font-size: 12px;
+            font-weight: bold;
+        }
+    
+        .priority-low {
+            color: #00bfff; /* Blue */
+        }
+    
+        .priority-medium {
+            color: #ffd700; /* Gold */
+        }
+    
+        .priority-high {
+            color: #ff0000; /* Red */
+        }
+    
+        .create-task-button {
+            display: flex;
+            color: #35FA04;
+            justify-content: center;
+            margin-top: 10px;
+        }
+    
+        .create-task-button a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            background-color: #0ed414; /* Set the button background color */
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .create-task-button a:hover {
+            background-color: #45a049; /* Set the button hover background color */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    
+        .create-task-button a:active {
+            background-color: #4caf50; /* Set the button active background color */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+    
+        .todo-list {
+            background-color: #fff; /* Set the Todo list background color */
+            padding: 10px;
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    
+        .completed-tasks {
+            background-color: #f9f9f9;
+            padding: 10px;
+            
+            margin-top: 20px;
+        }
+    
+        .completed-tasks ul {
+            list-style-type: none;
+            padding: 0;
+            border-radius: 5px;
+        }
+    
+        .completed-tasks .task-item {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    
+        h2 {
+            color: Green;
+            text-align: center;
+        }
+    
+        .task-item {
+            color: #000; /* Set the list item color to white */
+            font: bold;
+            background: #1BFF00;
+            border-radius: 7px;
+        }
+    
+        .completed {
+            background-color: #d3efdb; /* Set the Todo list background color */
+            padding: 10px;
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 10%;
+            border-radius: 5px;
+        }
+    
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Add this line to make the container a positioning context */
+        }
+    
+        /* Logout Button Styles */
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #282ef4;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    
+        .logout-button:hover {
+            background-color: #0d1114;
+        }
+    
+        .Dashboard {
+            background: #3c3834;
+            padding: 10px;
+            margin: 3%;
+            margin-top: 10%;
+            padding-bottom: 10%;
+            border-radius: 10px;
+        }
+
+
+        .expired-tasks{
+            background-color: #d0d0d0; /* Set the Todo list background color */
+            padding: 10px;
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 6%;
+            border-radius: 5px;
+        }
+
+        .expired-tasks .task-item {
+            background-color: #ff0000;
+            color: #fff;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .expired-tasks h2{
+            color: Red;
+
+        }
+    
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .todo-list,
+            .completed {
+                width: 90%;
+            }
+        }
+    
+        @media screen and (max-width: 480px) {
+            .todo-list,
+            .completed {
+                width: 100%;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+
+    <form action="/logout/" method="post">
+        {% csrf_token %}
+        <button class="logout-button" type="submit">Logout</button>
+    </form>
+    <div class="Dashboard">
+        <h1>Todo List</h1>
+        <div class="todo-list">
+            <ul>
+                {% for task in tasks %}
+                    {% if task.user == request.user %}
+                        <li{% if task.completed %} class="completed"{% endif %}>
+                            <span class="task-title">{{ task.title }}</span>
+                            <span class="priority priority-{{ task.priority }}">Priority: {{ task.get_priority_display }}</span>
+                            <span class="due-date"><b>Due: {{ task.completed_at }}</span>  <!-- Add this line to display the due date -->
+                            <form action="{% url 'task_remove' task.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+
+                            <form action="{% url 'task_edit' task.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Edit</button>
+                            </form>
+
+                            <form action="{% url 'task_delete' task.id %}" method="post">
+                                {% csrf_token %}
+                                {% if not task.completed %}
+                                    <button name="completed" type="submit">Done</button>
+                                {% endif %}
+                            </form>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>No tasks found.</li>
+                {% endfor %}
+            </ul>
+
+            <div class="task-info">
+                <span>{{ tasks|length }} items left</span>
+            </div>
+            <div class="task-filters">
+                <form action="{% url 'task_list' %}" method="post">
+                    {% csrf_token %}
+                    <button class="active" name="filter" value="all">Active Tasks</button>
+                    
+
+                </form>
+            </div>
+        </div>
+
+        {% if filter == 'expired' %}
+            <div class="expired-tasks">
+                <h2>Expired Tasks</h2>
+                <ul>
+                    {% for task in expired_tasks %}
+                        <li class="task-item">{{ task.title }}</li>
+                    {% empty %}
+                        <li>No expired tasks found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if show_completed %}
+            <div class="completed-tasks">
+                <h2>Completed Tasks</h2>
+                <ul>
+                    {% for completed_task in completed_tasks %}
+                        <li class="task-item">{{ completed_task.title }}</li>
+                    {% empty %}
+                        <li>No completed tasks found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="create-task-button">
+            <a href="{% url 'task_create' %}"><b>Create Task</b></a>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="completed">
+
+            <h2>Completed Tasks</h2>
+            <ul>
+                {% for task in completed_tasks %}
+                    <li class="task-item">{{ task.title }}</li>
+                    <br>
+                {% empty %}
+                    <li>No completed tasks found.</li>
+                {% endfor %}
+            </ul>
+            <br>
+        </div>
+
+
+        <div class="expired-tasks">
+            <h2>Expired Tasks</h2>
+            <ul>
+                {% for task in expired_tasks %}
+                <li class="task-item">{{ task.title }}</li>
+                <br>
+            {% empty %}
+                <li>No completed tasks found.</li>
+            {% endfor %}
+            </ul>
+          </div>
+
+
+
+    </div>
+</body>
+</html>
