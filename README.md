@@ -16,7 +16,7 @@ A simple Todo app built with Django framework that allows users to create, manag
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/django-todo-app.git
+   git clone https://github.com/RamAnand76/django-todo-app.git
    ```
 
 2. Navigate to the project directory:
